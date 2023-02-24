@@ -1,44 +1,44 @@
 module.exports = function check(str, bracketsConfig) {
-  
-function brackets() {
-	const openBrackets = ['(', '{'];
-	const bracketsPairs = {
+	const openBrackets = ['(', '{', '[', '|', '1', '3', '5', '7', '8'];
+	bracketsConfig = {
 		[')']: '(',
 		['}']: '{',
+		[']']: '[',
+		['|']: '|',
+		['2']: '1',
+		['4']: '3',
+		['6']: '5',
+		['7']: '7',
+		['8']: '8',
 	}
 
 //let stack = [];
-function isBracketsRight(string) {
+function isBracketsRight(str) {
 	let stack = [];
 	
-	for (i = 0; i < string.length; i++) {
-		let currentSymbol = string[i];
+	for (i = 0; i < str.length; i++) {
+		let currentSymbol = str[i];
 		
 		if (openBrackets.includes(currentSymbol)) {
 			stack.push(currentSymbol);
 		} else {
-			if (string.length === 0) {
+			if (str.length === 0) {
 				return false;
 			}
 			
 			let topElement = stack[stack.length - 1];
 			
-			if (bracketsPairs[currentSymbol] === topElement) {
+			if (bracketsConfig[currentSymbol] === topElement) {
 				stack.pop();
 			} else {
 				return false 
 			}
 		}
 	}
-	return stack.length === 0;
+    if (stack.length === 0) {return true}
+    if (stack.length % 2 == 0) {return true}
+	if (stack.length % 2 > 0) {return false}
 }
 
-console.log(isBracketsRight('(())'));
-	console.log(isBracketsRight('(()'));
-		console.log(isBracketsRight('(({))'));
-			console.log(isBracketsRight('{'));
-}
-
-brackets()
-
+return isBracketsRight(str)
 }
